@@ -8,11 +8,16 @@ charset-normalizer==3.4.2
 firecrawl-py==2.8.0
 frozenlist==1.7.0
 idna==3.10
+iniconfig==2.1.0
 multidict==6.5.0
 nest-asyncio==1.6.0
+packaging==25.0
+pluggy==1.6.0
 propcache==0.3.2
 pydantic==2.11.7
 pydantic_core==2.33.2
+Pygments==2.19.1
+pytest==8.4.1
 python-dotenv==1.1.0
 requests==2.32.4
 typing-inspection==0.4.1
