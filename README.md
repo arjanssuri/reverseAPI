@@ -11,57 +11,54 @@ cd reverseAPI
 
 # Install everything needed
 pip install -r requirements.txt
+
+# Start the server
+python server.py
 ```
 
 ## 📋 What This Service Does
 
 reverseAPI automatically:
-- Finds and reads API documentation from websites
-- Understands what each API does using AI  
-- Organizes all the information in a smart way
-- Gives your coding tools instant access to API info
-- Can even create API keys for you automatically
+- Scrapes API documentation from any website using Firecrawl
+- Extracts content in markdown and HTML formats
+- Provides a simple REST API for scraping websites
+- Returns structured data with metadata
 
 ## 🔗 Available Endpoints
 
-### **Data Collection**
-- `POST /sources` - Add API documentation source
-- `GET /sources` - Get all data sources
-- `DELETE /sources/{id}` - Remove data source
-- `POST /sources/{id}/refresh` - Refresh data source
+**Server runs on:** `http://localhost:8000`
 
-### **API Information Search**
-- `GET /search` - Search APIs
-- `GET /apis/{id}` - Get API details
-- `GET /apis/{id}/similar` - Find similar APIs
-- `GET /apis/{id}/examples` - Get code examples
+### **GET /** 
+Health check - returns server status
 
-### **Smart API Key Management**
-- `POST /keys` - Create API key
-- `GET /keys` - List API keys
-- `GET /keys/{id}/status` - Check key status
-- `POST /keys/{id}/rotate` - Rotate API key
+### **GET /health**
+Detailed health check with service information
 
-### **Integration with Your Tools**
-- `POST /integrations/ide` - Connect to IDE
-- `GET /suggestions` - Get contextual suggestions
-- `POST /generate/client` - Generate API client code
-- `POST /validate` - Validate API usage
+### **GET /scrape**
+Scrape any website and return content
 
-### **Data Management**
-- `GET /status` - Get processing status
-- `GET /export` - Export API catalog
-- `POST /import` - Import API data
-- `DELETE /cache` - Clear cache
+**Parameters:**
+- `url` (required) - Website URL to scrape
+- `formats` (optional) - Output formats: `markdown`, `html` (default: `markdown`)
 
-### **Analytics & Insights**
-- `GET /analytics/usage` - Usage statistics
-- `GET /analytics/costs` - Cost tracking
-- `GET /analytics/performance` - Performance metrics
-- `GET /analytics/trends` - Trend analysis
+**Example Usage:**
+```bash
+# Basic scraping
+curl "http://localhost:8000/scrape?url=docs.stripe.com/api"
 
-### **System Management**
-- `GET /health` - Health check
-- `PUT /config` - Update configuration
-- `GET /logs` - View logs
-- `POST /backup` - Backup data 
+# Multiple formats
+curl "http://localhost:8000/scrape?url=platform.openai.com/docs&formats=markdown&formats=html"
+
+# Any API documentation site
+curl "http://localhost:8000/scrape?url=docs.github.com/en/rest"
+```
+
+## 🧪 Testing
+
+```bash
+# Run automated tests
+python test_server.py
+
+# Or use pytest
+pytest tests/
+``` 
