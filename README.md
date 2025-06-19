@@ -12,6 +12,9 @@ cd reverseAPI
 # Install everything needed
 pip install -r requirements.txt
 
+# Install browser dependencies
+playwright install
+
 # Start the server
 python server.py
 ```
@@ -22,6 +25,7 @@ reverseAPI automatically:
 - Scrapes API documentation from any website using Firecrawl
 - Extracts content in markdown and HTML formats
 - Provides a simple REST API for scraping websites
+- Uses browser automation to perform complex web tasks
 - Returns structured data with metadata
 
 ## 🔗 Available Endpoints
@@ -51,6 +55,24 @@ curl "http://localhost:8000/scrape?url=platform.openai.com/docs&formats=markdown
 
 # Any API documentation site
 curl "http://localhost:8000/scrape?url=docs.github.com/en/rest"
+```
+
+### **GET /useragent**
+Use browser automation to perform complex web tasks
+
+**Parameters:**
+- `task` (required) - Description of what you want the agent to do
+
+**Example Usage:**
+```bash
+# Compare API pricing
+curl "http://localhost:8000/useragent?task=Compare the price of gpt-4o and claude-3.5-sonnet"
+
+# Find current information
+curl "http://localhost:8000/useragent?task=Find the current price of Bitcoin in USD"
+
+# Research tasks
+curl "http://localhost:8000/useragent?task=Find the latest features in the OpenAI API documentation"
 ```
 
 ## 🧪 Testing

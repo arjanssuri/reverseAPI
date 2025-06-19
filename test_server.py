@@ -66,6 +66,21 @@ def test_server():
     print(f"Status: {response.status_code}")
     print(f"Response: {response.json()}")
     
+    # Test 6: Browser Agent - Simple task
+    print("\n6. Testing browser agent with simple task...")
+    response = requests.get(f"{base_url}/useragent", params={
+        "task": "Find the current price of Bitcoin in USD"
+    }, timeout=120)  # Longer timeout for browser agent
+    print(f"Status: {response.status_code}")
+    if response.status_code == 200:
+        data = response.json()
+        print(f"Success: {data['success']}")
+        print(f"Task: {data['task']}")
+        print(f"Steps completed: {data['steps_completed']}")
+        print(f"Result: {data['result'][:300]}...")
+    else:
+        print(f"Error: {response.text}")
+    
     print("\n✅ Server tests completed!")
 
 if __name__ == "__main__":
