@@ -1,0 +1,11 @@
+Your mission: Create a Supabase project step by step.
+
+Step 1: Navigate to supabase.com
+Step 2: Click sign in
+Step 3: Use email: arjan.suri17@gmail.com
+Step 4. Use password: Enrichify12!
+Step 5: Click Sign In
+Step 6: Create project named 'my-awesome-project'
+Step 7: Scroll down to API keys and copy both Supabase Key & Supabase URL
+
+Be methodical and patient with each step."

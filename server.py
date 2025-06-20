@@ -3,6 +3,7 @@ from typing import List, Optional
 import uvicorn
 import asyncio
 from clients.firecrawl_client import FirecrawlClient
+from pydantic import BaseModel
 
 # Browser agent imports
 from browser_use import Agent
@@ -13,6 +14,10 @@ app = FastAPI(
     description="API documentation scraping service using Firecrawl and Browser Agent",
     version="1.0.0"
 )
+
+# Pydantic model for POST requests
+class BrowserTaskRequest(BaseModel):
+    task: str
 
 # Initialize Firecrawl client
 try:
@@ -26,7 +31,7 @@ try:
     browser_llm = ChatAnthropic(
         model="claude-sonnet-4-20250514",
         temperature=0,
-        max_tokens=1024,
+        max_tokens=8192,  # Increased from 4096 to handle complex tasks
         timeout=None,
         max_retries=2,
     )
@@ -97,14 +102,27 @@ async def scrape_website(
         )
 
 @app.get("/useragent")
-async def use_browser_agent(
+async def use_browser_agent_get(
     task: str = Query(..., description="The task for the browser agent to perform")
 ):
     """
-    Use the browser agent to perform a task using web automation.
+    Use the browser agent to perform a task using web automation (GET method).
     
     - **task**: Description of what you want the agent to do (required)
     """
+    return await _run_browser_task(task)
+
+@app.post("/useragent")
+async def use_browser_agent_post(request: BrowserTaskRequest):
+    """
+    Use the browser agent to perform a task using web automation (POST method).
+    
+    - **task**: Description of what you want the agent to do (required)
+    """
+    return await _run_browser_task(request.task)
+
+async def _run_browser_task(task: str):
+    """Helper function to run browser agent tasks."""
     if not browser_llm:
         raise HTTPException(
             status_code=500, 
